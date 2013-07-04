@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Youtube Analytics Dashboard\n"
-"POT-Creation-Date: 2013-07-04 21:47+0200\n"
-"PO-Revision-Date: 2013-07-04 21:47+0200\n"
+"POT-Creation-Date: 2013-07-04 22:00+0200\n"
+"PO-Revision-Date: 2013-07-04 22:00+0200\n"
 "Last-Translator: Deconf <admin@deconf.com>\n"
 "Language-Team: Deconf <admin@deconf.com>\n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgid "Support on Deconf Forum"
 msgstr ""
 
 #: .././yt_dash.php:17 .././yt_dash.php:53
-msgid "Youtube Analytics Dashboard"
+msgid "YouTube Analytics Dashboard"
 msgstr ""
 
 #: .././yt_dash.php:17
@@ -55,7 +55,7 @@ msgid "Save Access Code"
 msgstr ""
 
 #: .././yt_dash.php:134
-msgid "Getting your Youtube unique User ID ..."
+msgid "Getting your YouTube unique User ID ..."
 msgstr ""
 
 #: .././yt_dash.php:176
@@ -179,11 +179,11 @@ msgid "Options saved."
 msgstr ""
 
 #: .././yt_dash_admin.php:107
-msgid "Youtube Analytics Dashboard Settings"
+msgid "YouTube Analytics Dashboard Settings"
 msgstr ""
 
 #: .././yt_dash_admin.php:109
-msgid "Youtube Analytics API"
+msgid "YouTube Analytics API"
 msgstr ""
 
 #: .././yt_dash_admin.php:110
@@ -241,15 +241,15 @@ msgid "Support Links"
 msgstr ""
 
 #: .././yt_dash_admin.php:140 .././yt_dash_admin.php:196
-msgid "Youtube Analytics Dashboard Official Page"
+msgid "YouTube Analytics Dashboard Official Page"
 msgstr ""
 
 #: .././yt_dash_admin.php:141 .././yt_dash_admin.php:197
-msgid "Youtube Analytics Dashboard Wordpress Support"
+msgid "YouTube Analytics Dashboard Wordpress Support"
 msgstr ""
 
 #: .././yt_dash_admin.php:142 .././yt_dash_admin.php:198
-msgid "Youtube Analytics Dashboard on Deconf Forum"
+msgid "YouTube Analytics Dashboard on Deconf Forum"
 msgstr ""
 
 #: .././yt_dash_admin.php:145 .././yt_dash_admin.php:201

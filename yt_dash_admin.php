@@ -104,9 +104,9 @@ if ( is_rtl() ) {
 ?>  
 <div class="wrap">
 <div style="width:70%;float:<?php echo $float_main; ?>;">  
-    <?php echo "<h2>" . __( 'Youtube Analytics Dashboard Settings', 'yt_dash' ) . "</h2>"; ?>  
+    <?php echo "<h2>" . __( 'YouTube Analytics Dashboard Settings', 'yt_dash' ) . "</h2>"; ?>  
         <form name="yt_dash_form" method="post" action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>">  
-		<?php echo "<h3>". __( 'Youtube Analytics API', 'yt_dash' )."</h3>"; ?>  
+		<?php echo "<h3>". __( 'YouTube Analytics API', 'yt_dash' )."</h3>"; ?>  
         <?php echo "<i>".__("You should watch this", 'yt_dash')." <a href='http://www.deconf.com/en/projects/youtube-analytics-dashboard-for-wordpress/' target='_blank'>". __("Step by step video tutorial")."</a> ".__("before proceeding with authorization.", 'yt_dash')."</i>";?>
 		<p><input name="yt_dash_userapi" type="checkbox" id="yt_dash_userapi" onchange="this.form.submit()" value="1"<?php if (get_option('yt_dash_userapi')) echo " checked='checked'"; ?>  /><?php echo "<b>".__(" use your own API Project credentials", 'yt_dash' )."</b>"; ?></p>
 		<?php
@@ -137,9 +137,9 @@ if ( is_rtl() ) {
 							<br /><h3><?php _e("Support Links",'yt_dash') ?></h3>
 						</center>			
 						<ul>
-							<li><a href="http://www.deconf.com/en/projects/youtube-analytics-dashboard-for-wordpress/" target="_blank"><?php _e("Youtube Analytics Dashboard Official Page",'yt_dash') ?></a></li>
-							<li><a href="http://wordpress.org/support/plugin/youtube-analytics/" target="_blank"><?php _e("Youtube Analytics Dashboard Wordpress Support",'yt_dash') ?></a></li>
-							<li><a href="http://forum.deconf.com/en/wordpress-plugins-f182/" target="_blank"><?php _e("Youtube Analytics Dashboard on Deconf Forum",'yt_dash') ?></a></li>			
+							<li><a href="http://www.deconf.com/en/projects/youtube-analytics-dashboard-for-wordpress/" target="_blank"><?php _e("YouTube Analytics Dashboard Official Page",'yt_dash') ?></a></li>
+							<li><a href="http://wordpress.org/support/plugin/youtube-analytics/" target="_blank"><?php _e("YouTube Analytics Dashboard Wordpress Support",'yt_dash') ?></a></li>
+							<li><a href="http://forum.deconf.com/en/wordpress-plugins-f182/" target="_blank"><?php _e("YouTube Analytics Dashboard on Deconf Forum",'yt_dash') ?></a></li>			
 						</ul>
 						<center>
 							<br /><h3><?php _e("Useful Plugins",'yt_dash') ?></h3>
@@ -193,9 +193,9 @@ if ( is_rtl() ) {
 			<br /><h3><?php _e("Support Links",'yt_dash') ?></h3>
 		</center>			
 		<ul>
-			<li><a href="http://www.deconf.com/en/projects/youtube-analytics-dashboard-for-wordpress/" target="_blank"><?php _e("Youtube Analytics Dashboard Official Page",'yt_dash') ?></a></li>
-			<li><a href="http://wordpress.org/support/plugin/youtube-analytics/" target="_blank"><?php _e("Youtube Analytics Dashboard Wordpress Support",'yt_dash') ?></a></li>
-			<li><a href="http://forum.deconf.com/en/wordpress-plugins-f182/" target="_blank"><?php _e("Youtube Analytics Dashboard on Deconf Forum",'yt_dash') ?></a></li>			
+			<li><a href="http://www.deconf.com/en/projects/youtube-analytics-dashboard-for-wordpress/" target="_blank"><?php _e("YouTube Analytics Dashboard Official Page",'yt_dash') ?></a></li>
+			<li><a href="http://wordpress.org/support/plugin/youtube-analytics/" target="_blank"><?php _e("YouTube Analytics Dashboard Wordpress Support",'yt_dash') ?></a></li>
+			<li><a href="http://forum.deconf.com/en/wordpress-plugins-f182/" target="_blank"><?php _e("YouTube Analytics Dashboard on Deconf Forum",'yt_dash') ?></a></li>			
 		</ul>
 		<center>
 			<br /><h3><?php _e("Useful Plugins",'yt_dash') ?></h3>

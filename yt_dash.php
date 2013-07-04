@@ -1,8 +1,8 @@
 <?php
 /* 
-Plugin Name: Youtube Analytics Dashboard
+Plugin Name: YouTube Analytics Dashboard
 Plugin URI: http://www.deconf.com
-Description: This plugin will display Youtube Analytics data and statistics into Admin Dashboard. 
+Description: This plugin will display YouTube Analytics data and statistics into Admin Dashboard. 
 Author: Deconf.com
 Version: 0.9
 Author URI: http://www.deconf.com
@@ -14,7 +14,7 @@ function yt_dash_admin() {
 	
 function yt_dash_admin_actions() {
 	if (current_user_can('manage_options')) {  
-		add_options_page(__("Youtube Analytics Dashboard",'yt_dash'), __("YT Dashboard",'yt_dash'), "manage_options", "Youtube_Analytics_Dashboard", "yt_dash_admin");
+		add_options_page(__("YouTube Analytics Dashboard",'yt_dash'), __("YT Dashboard",'yt_dash'), "manage_options", "YouTube_Analytics_Dashboard", "yt_dash_admin");
 	}
 }  
 
@@ -27,7 +27,7 @@ add_action('plugins_loaded', 'yt_dash_init');
 add_filter("plugin_action_links_$plugin", 'yt_dash_settings_link' );
 
 function yt_dash_settings_link($links) { 
-  $settings_link = '<a href="options-general.php?page=Youtube_Analytics_Dashboard">'.__("Settings",'yt_dash').'</a>'; 
+  $settings_link = '<a href="options-general.php?page=YouTube_Analytics_Dashboard">'.__("Settings",'yt_dash').'</a>'; 
   array_unshift($links, $settings_link); 
   return $links; 
 }
@@ -50,7 +50,7 @@ function yt_dash_setup() {
 	if (current_user_can(get_option('yt_dash_access'))) {
 		wp_add_dashboard_widget(
 			'yt_dash-widget',
-			__("Youtube Analytics Dashboard",'yt_dash'),
+			__("YouTube Analytics Dashboard",'yt_dash'),
 			'yt_dash_content',
 			$control_callback = null
 		);
@@ -75,7 +75,7 @@ function yt_dash_content() {
 
 	$client = new Google_Client();
 	$client->setAccessType('offline');
-	$client->setApplicationName('Youtube Analytics Dashboard');
+	$client->setApplicationName('YouTube Analytics Dashboard');
 	$client->setRedirectUri('urn:ietf:wg:oauth:2.0:oob');
 	
 	if (get_option('yt_dash_userapi')){		
@@ -131,7 +131,7 @@ function yt_dash_content() {
 	if (!isset($_REQUEST['yt_dash_code'])){
 		$userid=yt_dash_getuserid($client);
 	}else{
-		echo "<br />".__("Getting your Youtube unique User ID ...",'yt-dash')."<br /><br />";
+		echo "<br />".__("Getting your YouTube unique User ID ...",'yt-dash')."<br /><br />";
 		$adminurl = admin_url("#yt_dash-widget");
 		echo '<script> window.location="'.$adminurl.'"; </script> ';	
 	}

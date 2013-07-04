@@ -1,4 +1,4 @@
-=== Youtube Analytics Dashboard ===
+=== YouTube Analytics Dashboard ===
 Contributors: deconf
 Tags: youtube analytics dashboard, analytics dashboard, youtube, dashboard, youtube analytics widget, youtube analytics, tracking, analytics
 Requires at least: 2.8
@@ -7,16 +7,16 @@ Stable tag: 0.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-This plugin will display Youtube Analytics data and statistics inside your WordPress Blog.
+This plugin will display YouTube Analytics data and statistics inside your WordPress Blog.
 
 == Description ==
-Using a widget, Youtube Analytics Dashboard displays detailed info and statistics about: number of views, minutes watched, average view duration, video likes, video dislikes and number of comments directly on your Admin Dashboard.
+Using a widget, YouTube Analytics Dashboard displays detailed info and statistics about: number of views, minutes watched, average view duration, video likes, video dislikes and number of comments directly on your Admin Dashboard.
 
-Using this plugin, your data is collected in a fast and secure manner, because Youtube Analytics Dashboard uses OAuth2 protocol and Youtube Analytics API.
+Using this plugin, your data is collected in a fast and secure manner, because YouTube Analytics Dashboard uses OAuth2 protocol and YouTube Analytics API.
 
 Main benefits:
 
-- you can access Youtube Analytics in a simple widget, on your dashboard
+- you can access YouTube Analytics in a simple widget, on your dashboard
 - cache feature, this improves loading speeds
 - two themes are available: Red Theme and Light Theme
 - access level settings, choose who can view your youtube stats
@@ -26,9 +26,9 @@ Main benefits:
 
 Related Links:
 
-* <a href="http://forum.deconf.com/en/wordpress-plugins-f182/" target="_blank">Support and Youtube Analytics Dashboard translations</a>
+* <a href="http://forum.deconf.com/en/wordpress-plugins-f182/" target="_blank">Support and YouTube Analytics Dashboard translations</a>
 
-* <a href="http://www.deconf.com/en/projects/youtube-analytics-dashboard-for-wordpress/" title="Youtube Analytics Dashboard"  target="_blank">Youtube Analytics Dashboard Plugin Homepage</a>
+* <a href="http://www.deconf.com/en/projects/youtube-analytics-dashboard-for-wordpress/" title="YouTube Analytics Dashboard"  target="_blank">YouTube Analytics Dashboard Plugin Homepage</a>
 
 == Installation ==
 
@@ -38,13 +38,13 @@ Related Links:
 4. Authorize the application using the 'Authorize Application' button
 5. Go back to the plugin configuration page, which is located under Settings -> YT Dashboard to update the final settings.
 
-A step by step tutorial is available here: [Youtube Analytics Dashboard video tutorial](http://www.deconf.com/en/projects/youtube-analytics-dashboard-for-wordpress/)
+A step by step tutorial is available here: [YouTube Analytics Dashboard video tutorial](http://www.deconf.com/en/projects/youtube-analytics-dashboard-for-wordpress/)
 
 == Frequently Asked Questions == 
 
 = Where can I find my Google API Key, Client Secret, Client ID? =
 
-Follow this step by step video tutorial: [Youtube Analytics Dashboard](http://www.deconf.com/en/projects/youtube-analytics-dashboard-for-wordpress/)
+Follow this step by step video tutorial: [YouTube Analytics Dashboard](http://www.deconf.com/en/projects/youtube-analytics-dashboard-for-wordpress/)
 
 = I have several wordpress websites do I need an API Project for each one? =
 
@@ -60,9 +60,9 @@ A dedicated section for Wordpress Plugins is available here: [Wordpress Plugins 
 
 == Screenshots ==
 
-1. Youtube Analytics Dashboard Red Theme
-2. Youtube Analytics Dashboard Light Theme
-3. Youtube Analytics Dashboard Settings
+1. YouTube Analytics Dashboard Red Theme
+2. YouTube Analytics Dashboard Light Theme
+3. YouTube Analytics Dashboard Settings
 
 == License ==
 
