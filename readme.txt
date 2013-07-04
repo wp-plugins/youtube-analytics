@@ -1,4 +1,4 @@
-=== Youtube Analytics Dashboard for WP ===
+=== Youtube Analytics Dashboard ===
 Contributors: deconf
 Tags: youtube analytics dashboard, analytics dashboard, youtube, dashboard, youtube analytics widget, youtube analytics, tracking, analytics
 Requires at least: 2.8
