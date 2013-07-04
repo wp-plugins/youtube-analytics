@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Youtube Analytics Dashboard\n"
-"POT-Creation-Date: 2013-07-04 21:20+0200\n"
-"PO-Revision-Date: 2013-07-04 21:20+0200\n"
+"POT-Creation-Date: 2013-07-04 21:47+0200\n"
+"PO-Revision-Date: 2013-07-04 21:47+0200\n"
 "Last-Translator: Deconf <admin@deconf.com>\n"
 "Language-Team: Deconf <admin@deconf.com>\n"
 "MIME-Version: 1.0\n"
@@ -309,7 +309,7 @@ msgid "CSS Settings: "
 msgstr ""
 
 #: .././yt_dash_admin.php:170
-msgid "Blue Theme"
+msgid "Red Theme"
 msgstr ""
 
 #: .././yt_dash_admin.php:171
