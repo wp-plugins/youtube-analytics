@@ -1,5 +1,6 @@
 === YouTube Analytics Dashboard ===
 Contributors: deconf
+Donate link: http://deconf.com/donate/
 Tags: youtube analytics dashboard, analytics dashboard, youtube, dashboard, youtube analytics widget, youtube analytics, tracking, analytics
 Requires at least: 2.8
 Tested up to: 3.5.1
