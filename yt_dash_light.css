@@ -1,11 +1,10 @@
-.note{
-	border:2px solid #a1a1a1;
-	padding:10px 20px; 
-	background:white;
-	border-radius:25px;
-	width:25%;
+.deconf-title {
+	float:left;
+	margin-right: 10px;
+	margin-top: 2px;
+	clear:left;
 }
 
-.note li{
-	line-height:1.5em;
+.deconf-desc {
+	font-size: 1em;
 }

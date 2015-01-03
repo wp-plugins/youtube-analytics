@@ -1,11 +1,11 @@
 <?php
 /* 
 Plugin Name: YouTube Analytics Dashboard
-Plugin URI: http://www.deconf.com
+Plugin URI: https://deconf.com
 Description: This plugin will display YouTube Analytics data and statistics into Admin Dashboard. 
-Author: Deconf.com
-Version: 0.9
-Author URI: http://www.deconf.com
+Author: Alin Marcu
+Version: 1.0
+Author URI: https://deconf.com
 */  
 
 function yt_dash_admin() {  
@@ -14,7 +14,7 @@ function yt_dash_admin() {
 	
 function yt_dash_admin_actions() {
 	if (current_user_can('manage_options')) {  
-		add_options_page(__("YouTube Analytics Dashboard",'yt_dash'), __("YT Dashboard",'yt_dash'), "manage_options", "YouTube_Analytics_Dashboard", "yt_dash_admin");
+		add_options_page(__("YouTube Analytics Dashboard",'yt_dash'), __("YouTube Analytics",'yt_dash'), "manage_options", "YouTube_Analytics_Dashboard", "yt_dash_admin");
 	}
 }  
 
@@ -50,7 +50,7 @@ function yt_dash_setup() {
 	if (current_user_can(get_option('yt_dash_access'))) {
 		wp_add_dashboard_widget(
 			'yt_dash-widget',
-			__("YouTube Analytics Dashboard",'yt_dash'),
+			'YouTube Analytics Dashboard',			
 			'yt_dash_content',
 			$control_callback = null
 		);
@@ -65,14 +65,28 @@ function yt_dash_content() {
 		update_option('yt_dash_cachetime', 60*60*24);	
 	}
 
-	if (!class_exists('Google_Exception')) {
-		require_once 'src/Google_Client.php';
-	}
-		
-	require_once 'src/contrib/Google_YouTubeAnalyticsService.php';
+	// If at least PHP 5.3.2 use the autoloader, if not try to edit the include_path
+	if (version_compare(PHP_VERSION, '5.3.2') >= 0) {
+	    require 'vendor/autoload.php';
+	} else {
+	    set_include_path($GADASH_Config->plugin_path . '/src/' . PATH_SEPARATOR . get_include_path());
+	    // Include GAPI client
+	    if (! class_exists('Google_Client')) {
+	        require_once 'Google/Client.php';
+	    }
+	    
+	    // Include GAPI YouTube Service
+	    if (! class_exists('Google_Service_YouTube')) {
+	        require_once 'Google/Service/YouTube.php';
+	    }
+	    	    
+	    // Include GAPI YouTubeAnalytics Service
+	    if (! class_exists('Google_Service_YouTubeAnalytics')) {
+	        require_once 'Google/Service/YouTubeAnalytics.php';
+	    }
+	}	
 	
-	//$scriptUri = "http://".$_SERVER["HTTP_HOST"].$_SERVER['PHP_SELF'];
-
+	
 	$client = new Google_Client();
 	$client->setAccessType('offline');
 	$client->setApplicationName('YouTube Analytics Dashboard');
@@ -90,7 +104,7 @@ function yt_dash_content() {
 	
 	$client->setScopes(array('https://www.googleapis.com/auth/yt-analytics.readonly','https://www.googleapis.com/auth/yt-analytics-monetary.readonly',"https://www.googleapis.com/auth/youtube", "https://www.googleapis.com/auth/youtube.readonly", "https://www.googleapis.com/auth/youtubepartner"));
 	
-	$service = new Google_YouTubeAnalyticsService($client);		
+	$service = new Google_Service_YouTubeAnalytics($client);		
 	
 	if (yt_dash_get_token()) { 
 		$token = yt_dash_get_token();
@@ -108,8 +122,8 @@ function yt_dash_content() {
 			}
 			echo '<div style="padding:20px;">'.__("Use this link to get your access code:", 'yt_dash').' <a href="'.$authUrl.'" target="_blank">'.__("Get Access Code", 'yt_dash').'</a>';
 			echo '<form name="input" action="#" method="get">
-						<p><b>'.__("Access Code:", 'yt_dash').' </b><input type="text" name="yt_dash_code" value="" size="61"></p>
-						<input type="submit" class="button button-primary" name="yt_dash_authorize" value="'.__("Save Access Code", 'yt_dash').'"/>
+						<p><b>'.__("Access Code:", 'yt_dash').' </b><input type="text" name="yt_dash_code" value="" size="45"></p>
+						<input type="submit" class="button button-secondary" name="yt_dash_authorize" value="'.__("Save Access Code", 'yt_dash').'"/>
 					</form>
 				</div>';
 			return;
@@ -191,7 +205,7 @@ function yt_dash_content() {
 	
 	$metrics = $yt_query;
 	$dimensions = 'day';
-	$client->setUseObjects(true);
+
 	try{
 		$serial='ytdash_qr2'.str_replace(array(',','-',date('Y')),"",$from.$to.$metrics);
 		$transient = get_transient($serial);
@@ -202,7 +216,7 @@ function yt_dash_content() {
 			$data = $transient;
 			//echo "HIT0";			
 		}	
-	} catch (Google_ServiceException $e) {
+	} catch (Google_Service_Exception $e) {
 			echo yt_dash_pretty_error($e);
 			return;
 	}
@@ -211,8 +225,6 @@ function yt_dash_content() {
 	foreach ($data->getRows() as $row){
 		$yt_dash_statsdata.="['".$row[0]."',".$row[1]."],";
 	}
-	
-	//print_r($yt_dash_statsdata);
 
 	$metrics = 'views,estimatedMinutesWatched,averageViewDuration,likes,dislikes,comments';
 	if (get_option('yt_dash_additional')){
@@ -231,16 +243,13 @@ function yt_dash_content() {
 			set_transient( $serial, $data, get_option('yt_dash_cachetime') );
 		}else{
 			$data = $transient;
-			//echo "HIT1";	
 		}	
-	} catch (Google_ServiceException $e) {
+	} catch (Google_Service_Exception $e) {
 		echo yt_dash_pretty_error($e);
 		return;
 	}
 	
 	$rows=$data->getRows();
-	
-	//print_r($rows);
 	
 	if (get_option('yt_dash_style')=="light"){ 
 		$css="colors:['gray','darkgray'],";
@@ -273,8 +282,9 @@ function yt_dash_content() {
 		  legend: {position: 'none'},	
 		  pointSize: 3,".$css."
           title: '".$title."',
-		  chartArea: {width: '85%'},
-          hAxis: { title: '".__("Date",'yt_dash')."',  titleTextStyle: {color: '".$colors."'}, showTextEvery: 5}
+       	  chartArea: {width: '99%',height: '90%'},
+	      vAxis: { textPosition: 'in', minValue: 0},
+	      hAxis: { textPosition: 'none' }
 		};
 
         var chart = new google.visualization.AreaChart(document.getElementById('yt_dash_statsdata'));
@@ -284,11 +294,11 @@ function yt_dash_content() {
 
 	if (get_option('yt_dash_additional')){
 	
-		$yt_dash_additional="['".__("Favorites Added",'yt_dash')."',".$rows[0][6]."],";
-		$yt_dash_additional.="['".__("Favorites Removed",'yt_dash')."',".$rows[0][7]."],";
-		$yt_dash_additional.="['".__("Subscribers Gained",'yt_dash')."',".$rows[0][11]."],";
-		$yt_dash_additional.="['".__("Subscribers Lost",'yt_dash')."',".$rows[0][12]."],";	
-		$yt_dash_additional.="['".__("Shares",'yt_dash')."',".$rows[0][8]."],";
+		$yt_dash_additional="['".__("Favorites Added",'yt_dash')."',".(int)$rows[0][6]."],";
+		$yt_dash_additional.="['".__("Favorites Removed",'yt_dash')."',".(int)$rows[0][7]."],";
+		$yt_dash_additional.="['".__("Subscribers Gained",'yt_dash')."',".(int)$rows[0][11]."],";
+		$yt_dash_additional.="['".__("Subscribers Lost",'yt_dash')."',".(int)$rows[0][12]."],";	
+		$yt_dash_additional.="['".__("Shares",'yt_dash')."',".(int)$rows[0][8]."],";
 		$yt_dash_additional.="['".__("Annotation Click ThroughRate",'yt_dash')."',".round($rows[0][9],2)."],";
 		$yt_dash_additional.="['".__("Annotation Close Rate",'yt_dash')."',".round($rows[0][10],2)."],";
  
@@ -321,9 +331,9 @@ function yt_dash_content() {
 	<center>
 		<div id="yt_buttons_div">
 		
-			<input class="'.$yt_button_style.'" type="button" value="'.__("Last 7 days",'yt_dash').'" onClick="window.location=\'?yt_period=last7days&yt_query='.$yt_query.'\'" />
-			<input class="'.$yt_button_style.'" type="button" value="'.__("Last 14 days",'yt_dash').'" onClick="window.location=\'?yt_period=last14days&yt_query='.$yt_query.'\'" />
-			<input class="'.$yt_button_style.'" type="button" value="'.__("Last 30 days",'yt_dash').'" onClick="window.location=\'?yt_period=last30days&yt_query='.$yt_query.'\'" />
+			<input class="'.$yt_button_style.'" type="button" value="'.__("7 days",'yt_dash').'" onClick="window.location=\'?yt_period=last7days&yt_query='.$yt_query.'\'" />
+			<input class="'.$yt_button_style.'" type="button" value="'.__("14 days",'yt_dash').'" onClick="window.location=\'?yt_period=last14days&yt_query='.$yt_query.'\'" />
+			<input class="'.$yt_button_style.'" type="button" value="'.__("30 days",'yt_dash').'" onClick="window.location=\'?yt_period=last30days&yt_query='.$yt_query.'\'" />
 			<input class="'.$yt_button_style.'" type="button" value="'.__("This Month",'yt_dash').'" onClick="window.location=\'?yt_period=thismonth&yt_query='.$yt_query.'\'" />
 			<input class="'.$yt_button_style.'" type="button" value="'.__("This Year",'yt_dash').'" onClick="window.location=\'?yt_period=thisyear&yt_query='.$yt_query.'\'" />		
 		</div>
@@ -334,19 +344,19 @@ function yt_dash_content() {
 			<table class="yttable" cellpadding="4">
 			<tr>
 			<td width="24%">'.__("Views:",'yt_dash').'</td>
-			<td width="12%" class="ytvalue"><a href="?yt_query=views&yt_period='.$yt_period.'" class="yttable">'.$rows[0][0].'</td>
+			<td width="12%" class="ytvalue"><a href="?yt_query=views&yt_period='.$yt_period.'" class="yttable">'.(int)$rows[0][0].'</td>
 			<td width="24%">'.__("Watched:",'yt_dash').'</td>
 			<td  width="12%" class="ytvalue"><a href="?yt_query=estimatedMinutesWatched&yt_period='.$yt_period.'" class="yttable">'.round(($rows[0][1]/60),2).'h</a></td>			
-			<td width="24%">'.__("View Duration:",'yt_dash').'</td>
-			<td width="12%" class="ytvalue"><a href="?yt_query=averageViewDuration&yt_period='.$yt_period.'" class="yttable">'.$rows[0][2].'s</a></td>
+			<td width="24%">'.__("Duration:",'yt_dash').'</td>
+			<td width="12%" class="ytvalue"><a href="?yt_query=averageViewDuration&yt_period='.$yt_period.'" class="yttable">'.(int)$rows[0][2].'s</a></td>
 			</tr>
 			<tr>
 			<td>'.__("Likes:",'yt_dash').'</td>
-			<td class="ytvalue"><a href="?yt_query=likes&yt_period='.$yt_period.'" class="yttable">'.$rows[0][3].'</a></td>
+			<td class="ytvalue"><a href="?yt_query=likes&yt_period='.$yt_period.'" class="yttable">'.(int)$rows[0][3].'</a></td>
 			<td>'.__("Dislikes:",'yt_dash').'</td>
-			<td class="ytvalue"><a href="?yt_query=dislikes&yt_period='.$yt_period.'" class="yttable">'.$rows[0][4].'</a></td>
+			<td class="ytvalue"><a href="?yt_query=dislikes&yt_period='.$yt_period.'" class="yttable">'.(int)$rows[0][4].'</a></td>
 			<td>'.__("Comments:",'yt_dash').'</td>
-			<td class="ytvalue"><a href="?yt_query=comments&yt_period='.$yt_period.'" class="yttable">'.$rows[0][5].'</a></td>
+			<td class="ytvalue"><a href="?yt_query=comments&yt_period='.$yt_period.'" class="yttable">'.(int)$rows[0][5].'</a></td>
 			</tr>
 			</table>
 					
@@ -359,8 +369,5 @@ function yt_dash_content() {
 		$code .= '<br /><div id="yt_dash_additionaldata"></div>';
 	
 	echo $code; 
-	
-	$client->setUseObjects(false);   
-
 }	
 ?>

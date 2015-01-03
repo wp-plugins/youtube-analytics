@@ -1,7 +1,7 @@
 <?php
 	
 	function yt_dash_pretty_error($e){
-		return "<center><table><tr><td colspan='2' style='word-break:break-all;'>".$e->getMessage()."<br /><br /></td></tr><tr><td width='50%'><a href='http://wordpress.org/support/plugin/youtube' target='_blank'>".__("Help on Wordpress Forum",'yt_dash')."</a><td width='50%'><a href='http://forum.deconf.com/en/wordpress-plugins-f182/' target='_blank'>".__("Support on Deconf Forum",'yt_dash')."</a></td></tr></table></center>";	
+		return "<center><table><tr><td colspan='2' style='word-break:break-all;'>".$e->getMessage()."<br /><br /></td></tr><tr><td width='50%'><a href='http://wordpress.org/support/plugin/youtube' target='_blank'>".__("Help on Wordpress Forum",'yt_dash')."</a><td width='50%'><a href='http://forum.deconf.com/wordpress-plugins-f182/' target='_blank'>".__("Support on Deconf Forum",'yt_dash')."</a></td></tr></table></center>";	
 	}
 
 	function yt_dash_clear_cache(){
@@ -38,10 +38,9 @@
 		update_option('yt_dash_userid', ""); 		 		
 	}
 
-	function yt_dash_getuserid ($client_temp){
-		$client_temp->setUseObjects(true);
-		require_once 'src/contrib/Google_YouTubeService.php';
-		$service = new Google_YouTubeService($client_temp);
+	function yt_dash_getuserid ($client){
+
+		$service = new Google_Service_YouTube($client);
 		try{
 			$serial='ytdash_qr1userid';
 			$transient = get_transient($serial);
@@ -50,16 +49,13 @@
 				set_transient( $serial, $data, get_option('yt_dash_cachetime') );
 			}else{
 				$data = $transient;
-				//echo "HIT0";			
 			}	
-		} catch (Google_ServiceException $e) {
+		} catch (Google_Service_Exception $e) {
 				echo yt_dash_pretty_error($e);
 				return;
 		}
 
 		$item=$data->items[0]->id;
-
-		$client_temp->setUseObjects(false);
 		
 		return substr($item,2);	
 		
