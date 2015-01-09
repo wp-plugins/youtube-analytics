@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright 2010 Google Inc.
+ * Copyright 2014 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +15,19 @@
  * limitations under the License.
  */
 
-class Google_Service {
-  public $version;
-  public $servicePath;
-  public $resource;
+function google_api_php_client_autoload_ytanalytics($className) {
+  $classPath = explode('_', $className);
+  if ($classPath[0] != 'Google') {
+    return;
+  }
+  if (count($classPath) > 3) {
+    // Maximum class file path depth in this project is 3.
+    $classPath = array_slice($classPath, 0, 3);
+  }
+  $filePath = dirname(__FILE__) . '/src/' . implode('/', $classPath) . '.php';
+  if (file_exists($filePath)) {
+    require_once($filePath);
+  }
 }
+
+spl_autoload_register('google_api_php_client_autoload_ytanalytics');
